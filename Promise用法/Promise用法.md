@@ -46,7 +46,7 @@ function getUserDetail(username) {
 
 ## then 方法
 
-###所有的 promise 对象实例里都有一个 then 方法，它是用来跟这个 promise 进行交互的。首先，then 方法会缺省调用 resolve() 函数:
+所有的 promise 对象实例里都有一个 then 方法，它是用来跟这个 promise 进行交互的。首先，then 方法会缺省调用 resolve() 函数:
 
 ```js
     new Promise(function(resolve, reject) {
@@ -65,7 +65,7 @@ function getUserDetail(username) {
     .then(function(num) { console.log('second then: ', num); return num * 2; })
     .then(function(num) { console.log('last then: ', num);});
 ```
-###如果一个 promise 已经执行完成，单 then 被再次调用时，回调动作将会被再次执行。而如果这个 promise 里执行的是reject 回调函数，这是再调用 then 方法，回调函数将不会被执行。
+如果一个 promise 已经执行完成，单 then 被再次调用时，回调动作将会被再次执行。而如果这个 promise 里执行的是reject 回调函数，这是再调用 then 方法，回调函数将不会被执行。
 
 ##catch 方法
 
@@ -78,11 +78,11 @@ function getUserDetail(username) {
     .then(function(e) { console.log('done', e); })
     .catch(function(e) { console.log('catch: ', e); });
 ```
-###通常我们在 reject 方法里处理执行失败的结果，而在catch 里执行异常结果：reject(Error('Data could not be found'));
+通常我们在 reject 方法里处理执行失败的结果，而在catch 里执行异常结果：reject(Error('Data could not be found'));
 
 ##Promise.all 方法
 
-###在我们的异步调用时经常有这样一种场景：我们需要同时调用多个异步操作，但希望只有等所有的操作都完成后，我们才去执行响应操作——这就是 Promise.all 的作用。 Promise.all 方法可以接收多个 promise 作为参数，以数组的形式，当这些 promise 都成功执行完成后才调用回调函数。
+在我们的异步调用时经常有这样一种场景：我们需要同时调用多个异步操作，但希望只有等所有的操作都完成后，我们才去执行响应操作——这就是 Promise.all 的作用。 Promise.all 方法可以接收多个 promise 作为参数，以数组的形式，当这些 promise 都成功执行完成后才调用回调函数。
 
 ```js
 Promise.all([promise1, promise2]).then(function(results) {
@@ -93,7 +93,7 @@ Promise.all([promise1, promise2]).then(function(results) {
 });
 ```
 
-###一个很好的能演示 Promise.all 用法的例子是，执行多个 AJAX 操作(通过 fetch) 调用:
+一个很好的能演示 Promise.all 用法的例子是，执行多个 AJAX 操作(通过 fetch) 调用:
 
 ```js
 var request1 = fetch('/users.json');
@@ -102,7 +102,7 @@ Promise.all([request1, request2]).then(function(results) {
  // Both promises done!
 });
 ```
-###我们还可将fetch和电池状态API混合一起执行，因为它们返回的都是 promise：
+我们还可将fetch和电池状态API混合一起执行，因为它们返回的都是 promise：
 
 ```js
 Promise.all([fetch('/users.json'), navigator.getBattery()]).then(function(results) {
@@ -110,7 +110,7 @@ Promise.all([fetch('/users.json'), navigator.getBattery()]).then(function(result
 });
 ```
 
-###一旦 promise 里调用了reject函数，也就是执行被拒绝了，没有能够正常完成，情况会有些复杂。一旦 promise 被拒绝，catch 方法会捕捉到首个被执行的reject函数：
+一旦 promise 里调用了reject函数，也就是执行被拒绝了，没有能够正常完成，情况会有些复杂。一旦 promise 被拒绝，catch 方法会捕捉到首个被执行的reject函数：
 
 ```js
 var req1 = new Promise(function(resolve, reject) { 
@@ -132,7 +132,7 @@ Promise.all([req1, req2]).then(function(results) {
 
 ##Promise.race方法
 
-###Promise.race 是一个有趣的函数——它不是等待所有的 promise 被resolve 或 reject，而是在所有的 promise 中只要有一个执行结束，它就会触发：
+Promise.race 是一个有趣的函数——它不是等待所有的 promise 被resolve 或 reject，而是在所有的 promise 中只要有一个执行结束，它就会触发：
 
 ```js
 var req1 = new Promise(function(resolve, reject) { 
