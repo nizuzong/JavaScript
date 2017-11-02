@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+*{padding: 0;margin: 0;}
+li{list-style: none;}
+.main div{width: 100%;height: 700px;float: left;background:yellow;}
+.title{width: 100%;height: 50px;text-align: center;line-height: 50px;}
+.main div p{font-size: 30px; text-align: center; line-height: 700px;}
+.floor{position: fixed;top: 180px;right: 0;display: none;}
+.floor ul li{width: 70px;height: 30px;text-align: center;line-height: 30px;cursor: hand;cursor: pointer}
+.liStyle{background-color: #ccc;}
+
+#back{cursor: hand;cursor: pointer;}
+</style>
+</head>
+<body>
+<div class="main" id="main">
+<h3 class="title">楼层</h3>
+<div><p>1</p></div>
+<div><p>2</p></div>
+<div><p>3</p></div>
+<div><p>4</p></div>
+<div><p>5</p></div>
+<div><p>6</p></div>
+<div><p>7</p></div>
+<div><p>8</p></div>
+<div><p>9</p></div>
+<div><p>10</p></div>
+</div>
+<div class="floor" id="floor">
+<ul id="floorUl">
+<li>第一层</li>
+<li>第二层</li>
+<li>第三层</li>
+<li>第四层</li>
+<li>第五层</li>
+<li>第六层</li>
+<li>第七层</li>
+<li>第八层</li>
+<li>第九层</li>
+<li>第十层</li>
+</ul>
+<p id="back">返回顶部</p></div>
+<script> 
+var main = document.getElementById("main"); 
+var floor = document.getElementById("floor"); 
+var oDiv = main.getElementsByTagName("div"); 
+var floorUl = document.getElementById("floorUl"); 
+var li = floorUl.getElementsByTagName("li"); 
+var back = document.getElementById("back"); 
+
+window.onload = window.onscroll = function(){ 
+var scrollTop = document.documentElement.scrollTop || document.body.scrollTop; 
+var height = document.documentElement.clientHeight || document.body.clientHeight; 
+for(var i = 0;i < oDiv.length; i++){ 
+if(delay(oDiv[i]).top < scrollTop + height){ 
+oDiv[i].src = oDiv[i].getAttribute("as"); 
+} 
+} 
+if(scrollTop >= oDiv[0].offsetTop){ 
+floor.style.display = "block"; 
+}else { 
+floor.style.display = "none"; 
+} 
+var num = 0; 
+for(var i = 0; i < oDiv.length;i++){ 
+if(scrollTop >= oDiv[i].offsetTop){ 
+num = i; 
+} 
+li[i].className = ""; 
+} 
+li[num].className = "liStyle"; 
+for(var i = 0;i < li.length;i++){ 
+li[i].onclick = function(){ 
+for(var j = 0;j < li.length;j++){ 
+if(this == li[j]){ 
+document.documentElement.scrollTop = oDiv[j].offsetTop; 
+document.body.scrollTop = oDiv[j].offsetTop; 
+} 
+} 
+} 
+} 
+} 
+var time = null; 
+back.onclick = function() {
+function goBack(){ 
+var ss = document.documentElement.scrollTop || document.body.scrollTop; 
+ss-=50; 
+document.documentElement.scrollTop = ss; 
+document.body.scrollTop = ss; 
+if(ss<= 0){ 
+clearInterval(time); 
+} 
+} 
+time = setInterval(goBack,1); 
+} 
+function delay(obj){ 
+var l = 0; 
+var t = 0; 
+while (obj){ 
+l = l + obj.offsetLeft; 
+t = t + obj.offsetTop; 
+obj = obj.offsetParent; 
+} 
+return{left:l,top:t}; 
+}
+</script>
+</body>
+</html>

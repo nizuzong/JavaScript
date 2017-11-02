@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{
+	margin:0;
+	padding: 0;
+}
+#box{
+	position: fixed;
+    right:0;
+	top: 20%;
+}
+ul{
+	width:40px;
+}
+li{
+	width:40px;
+	height: 34px;
+	float: right;
+	margin-top: 2px;
+	list-style: none;
+	opacity: 0.5;
+	border-radius: 4px;
+}
+li:nth-child(1){
+    background:#000 url(./images/c.png);
+    background-position: -7px 901px;
+}
+li:nth-child(2){
+    background:#000 url(./images/c.png);
+    background-position: -8px 352px;
+}
+li:nth-child(3){
+    background:#000 url(./images/c.png);
+    background-position: -7px 252px;
+}
+li:nth-child(4){
+    background:#000 url(./images/c.png);
+    background-position: -9px 302px;
+}
+li:nth-child(5){
+    background:#000 url(./images/c.png);
+    background-position: -11px 252px;
+}
+li:nth-child(6){
+    background:#000 url(./images/c.png);
+    background-position: -185px 201px;
+}
+li:nth-child(7){
+    background:#000 url(./images/c.png);
+    background-position: -46px 201px;
+}
+	</style>
+</head>
+<body>
+	<div id='box'>
+		<ul>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		
+		
+		</ul>
+	</div>
+	<script>
+	var uls=document.getElementsByTagName('ul')[0].getElementsByTagName('li');
+	for(var i=0;i<uls.length;i++){
+		uls[i].onmouseover=function(){
+			this.style.backgroundColor='red';
+			this.style.opacity=1;
+			this.style.width='100px';
+		}
+		
+		uls[i].onmouseout=function(){
+			this.style.backgroundColor='#000';
+			this.style.opacity=0.5;
+			this.style.width='40px';
+		}
+	}
+
+	</script>
+</body>
+</html>

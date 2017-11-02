@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>无缝滚动</title>
+</head>
+<style>
+*{
+	margin:0;
+	padding:0;
+	list-style: none;
+}
+	.all{
+		width:640px;
+		height:270px;
+		padding:7px;
+		border:1px solid #ccc;
+		margin:100px auto;
+	}
+	.all ol{
+		position: absolute;
+		right:10px;
+		bottom: 10px;
+		line-height: 20px;
+		text-align: center;
+	}
+	.all ol li{
+		float:left;
+		width:20px;
+		height:20px;
+		background: #fff;
+		border:1px solid #ccc;
+		margin-left:10px;
+		cursor: pointer;
+	}
+	.screen{
+		width:640px;
+		height:270px;
+		/*overflow:hidden;*/
+		position: relative;
+	}
+	.screen li{
+		width:640px;
+		height:270px;
+		/*overflow:hidden;*/
+		float:left;
+	}
+	.screen ul{
+		position: absolute;
+		left:0;
+	}
+	#arr ol li.current{
+		background: red;
+	}
+	#arr span{
+		width:40px;
+		height:40px;
+		position: absolute;
+		left:5px;
+		top:50%;
+		margin-top:-20px;
+		background: #000;
+		cursor: pointer;
+		line-height: 40px;
+		text-align: center;
+		font-weight: bold;
+		font-size: 30px;
+		color:#fff;
+		opacity: 0.3;
+		border:1px solid #fff;
+	}
+</style>
+<body>
+	<div class="all" id="box">
+		<div class="screen">
+			<ul>
+				<li><img src="img/01.jpg" width"640"></li>
+				<li><img src="img/02.jpg" width"640"></li>
+				<li><img src="img/03.jpg" width"640"></li>
+				<li><img src="img/04.jpg" width"640"></li>
+				<li><img src="img/05.jpg" width"640"></li>				
+			</ul>
+			<ol></ol>
+		</div>
+		<div id="arr"><span id="left"></span><span id="right"></span>
+	</div>
+</body>
+</html>

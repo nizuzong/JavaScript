@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div id="ElongLogin" class="formbox">   
+        <div class="inputbox login_id">
+              <span class="icon"></span>
+              <input class="blur" type="text" id="UserName" value="用户名/卡号/手机号/邮箱">
+              <div class="input_tip" name="input_error_tip" style="display: none;">    您输入的用户名和密码不匹配，请重新输入！
+              </div>
+        </div>
+        <div class="inputbox login_pw" style="" id="input_password">
+            <span class="icon"></span>
+            <input class="blur" type="password" method="PassWord" id="PassWord">
+            <div class="input_tip" name="input_error_tip" style="display: none;">您输入的密码和用户名不匹配，请重新输入！
+            </div>
+        </div>
+	  <div class="inputbox">
+	  	  <input class="test" type="text" value="验证码" id="ValidateCode">
+	  	  <p class="test-wrap" id="codem">QNMP</p>
+	  	  <a href="#?" id="ValidateHref">换一张</a>
+	  	  <div class="input_tip input_tip_yzm" id="validate_result" style="display: none;">您输入的验证码有误</div>
+	  </div>
+        <a class="loginbtn" href="#?" usable="true" method="LoginSubmit" id="btn_log">登录</a>
+    </div>
+    <script>
+       // 不允许修改与样式！！！！！！！！！！！！！！！！
+       // 如果验证码错误，提示您输入的验证码有误
+       // 只有当用户名和密码与users中的任何一个对象内完全相等时，表明登陆成功。
+       // 如果用户名错误，在用户名框下方提示您输入的用户名和密码不匹配，请重新输入
+       // 如果用户名正确，密码错误，在密码框下方提示您输入的密码和用户名不匹配，请重新输入！
+       // ======所有信息提示，样式已经写好，还需做显示隐藏，请看DOM结构========
+       //、点击“换一张”按钮在26个子母中随机生成4位大写字母显示出来。
+       // 如果用户名、密码、验证码均填写正确，跳转到login.html页面中，将用户填写的用户名和密码以?参数=参数值的形式传递过去，中文需编码。
+       var users = [
+           {
+           	   username:"张三",
+           	   password:"zhangsan123"
+           },
+           {
+           	   username:"李四",
+           	   password:"123987li"
+           },
+           {
+           	   username:"王五",
+           	   password:"wang_wu55"
+           }
+       ] 
+
+    var inputs=document.getElementsByTagName('input');
+    var input_tip=document.querySelectorAll('.input_tip');
+    var Vali=document.getElementById('ValidateHref');
+    var codem=document.getElementById('codem');
+    var btn_log=document.getElementById('btn_log');
+    var arr=["用户名/卡号/手机号/邮箱","","验证码"];
+      for(var i=0;i<inputs.length;i++){
+        inputs[i].index=i;
+          inputs[i].onfocus=function(){
+            if(this.value==arr[this.index]){
+              this.value='';
+              input_tip[this.index].style.display='block';
+            }
+          }
+      }
+      inputs[0].oninput=function(){
+        var val=this.value;
+        var reg=/[\w\u4e00-\u9fa5]/;
+        if(val.length<2 || val.length>12){
+          input_tip[0].innerHTML='用户名长度不符';
+          input_tip[0].style.color='red';
+        }else if(!checktest(reg,val)){
+          input_tip[0].innerHTML='用户名不合法';
+          input_tip[0].style.color='red';
+        }else{
+          input_tip[0].innerHTML='用户名输入正确';
+          input_tip[0].style.color='#f0f';
+        }
+      }
+
+      inputs[1].oninput=function(){
+        var val=this.value;
+        var reg1=/\d+/;
+        var reg2=/[a-z]+/i;
+        var reg3=/[\-_\.]+/;
+        if(val.length<6||val.length>16){
+          input_tip[1].innerHTML='密码长度不符';
+          input_tip[1].style.color='red';
+        }else if(checktest(reg1,val)||checktest(reg2,val)||checktest(reg3,val)){
+          input_tip[1].innerHTML='密码输入正确';
+          input_tip[1].style.color='#f0f';
+        }else{
+          input_tip[1].innerHTML='密码只能为字母数字下划线';
+          input_tip[1].style.color='red';
+        }
+      }
+
+      Vali.onclick=function(){
+        var arr=["Q","W","E","R","T","Y","U","I","O","P","A","S","D","F","G","H","J","K","L","Z","X","C","V","B","N","M"];
+      
+      var str='';
+      for(var i=0;i<4;i++){
+         str+=arr[Math.floor(Math.random()*arr.length)];
+      }
+        codem.innerHTML=str;
+    }
+      var flag=false;
+      inputs[2].oninput=function(){
+        var val=this.value;
+        var cod=codem.innerHTML;
+        if(val!=cod){
+          input_tip[2].innerHTML='验证码不正确';
+          input_tip[2].style.color='red';
+          flag=false;
+        }else{
+          input_tip[2].innerHTML='验证码正确';
+          input_tip[2].style.color='#f0f';
+          flag=true;
+        }
+      }
+      btn_log.onclick=function(){ //点击button时判断用户名密码是否匹配和验证码是否正确
+        var user=inputs[0].value;
+        var pasd=inputs[1].value;
+        if(flag){
+            for(var i in users){
+              if(users[i].username==user){
+                input_tip[0].style.display='none';
+                if(users[i].password==pasd){
+                  var url='user='+user+'&pasd='+pasd;
+                  location.href="login.html?"+encodeURI();
+                }else{
+                   input_tip[1].style.display='block';
+                   input_tip[1].innerHTML='用户名密码不符';
+                   input_tip[1].style.color='red';
+                }
+                return false;
+              }else{
+                input_tip[0].style.display='block';
+              }
+            }
+        }else{
+          input_tip[2].style.display='block';
+          input_tip[2].innerHTML='验证码不正确';
+          input_tip[2].style.color='red';
+        }
+      }
+      function checktest(reg,val){
+        if(reg.test(val)){
+            return true;
+        }
+      }
+    </script>
+</body>
+</html>
