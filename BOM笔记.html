@@ -1,0 +1,201 @@
+
+
+笔记：
+
+	BOM:
+
+	BOM也叫浏览器对象模型，它提供了很多对象，用于访问浏览器的功能。BOM缺少规范，每个浏览器提供商又按照自己想法去扩展它，那么浏览器共有对象就成了事实的标准。所以，BOM本身是没有标准的或者还没有哪个组织去标准它。
+
+	一、window对象
+
+		BOM的核心对象是window，它表示浏览器的一个实例。window对象处于JavaScript结构的最顶层，对于每个打开的窗口，系统都会自动为其定义 window 对象。
+
+		1、对象的属性和方法 
+
+		window对象有一系列的属性，这些属性本身也是对象。
+
+						window对象的属性
+
+		属性名                                说明
+
+		opener                                打开当前窗口的窗口
+
+		closed                                当窗口关闭时为真 
+
+		document                              窗口中当前显示的文档对象 
+
+		frames                                窗口中的框架对象数组
+
+		history                               保存有窗口最近加载的URL
+
+		length                                窗口中的框架数 
+
+		location                              当前窗口的URL 
+
+		name                                  窗口名
+
+		screen                                显示屏幕相关信息，如高度、宽度（以像素为单位）
+
+		self                                  指示当前窗口
+
+		window                                指示当前窗口，与self等效
+
+
+						window对象的方法
+
+		方法名                                说明
+
+		open()                                打开一个新窗口
+
+		alert(text)                           创建一个警告对话框，显示一条信息
+
+		focus()                               将焦点移至窗口
+
+		blur()                                将焦点从窗口移除
+
+		close()                               关闭窗口
+
+		confirm()                             创建一个需要用户确认的对话框
+
+		setInterval(expression,milliseconds)  经过指定时间间隔计算一个表达式
+
+		setInterval(function,millisenconds)   经过指定时间间隔后调用一个函数
+
+		clearInterval(intervalId)               清除之前设置的定时器间隔
+
+		setTimeout(expression,milliseconds)   在定时器超过后计算一个表达式
+
+		setTimeout(function,milliseconds)   在定时器超过时后计算一个函数
+
+		clearTimeOut(timerId)                   清除之前设置的超时
+
+		print()                               调出打印对话框
+
+		注意 ===》 window下的属性和方法，可以使用window.属性、window.方法()或者直接属性、方法()的方式调用。例如：window.alert()和alert()是一个意思。
+
+		2、系统对话框
+
+		浏览器通过alert()、confirm()和prompt()方法可以调用系统对话框向用户显示信息。系统对话框与浏览器中显示的网页没有关系，也不包含HTML。
+
+		3、新建窗口
+
+		使用window.open()方法可以导航到一个特定的URL，也可以打开一个新的浏览器窗口。
+
+		它可以接受四个参数：
+
+			1.要加载的URL；
+
+			2.窗口的名称或窗口目标；
+
+			3.一个特性字符串；
+
+			4.一个表示新页面是否取代浏览器记录中当前加载页面的布尔值。
+
+		open('http://www.baidu.com');				//新建页面并打开百度
+		open('http://www.baidu.com','baidu');			//新建页面并命名窗口并打开百度
+		open('http://www.baidu.com','_parent');			//在本页窗口打开百度,_blank是新建
+
+		//第三参数字符串
+
+		height=100 窗口高度；  
+		width=400 窗口宽度；  
+		top=0 窗口距离屏幕上方的象素值；  
+		left=0 窗口距离屏幕左侧的象素值；  
+		toolbar=no 是否显示工具栏，yes为显示；  
+		menubar，scrollbars 表示菜单栏和滚动栏。  
+		resizable=no 是否允许改变窗口大小，yes为允许；  
+		location=no 是否显示地址栏，yes为允许；  
+		status=no 是否显示状态栏内的信息（通常是文件已经打开），yes为允许；
+
+		open('http://www.baidu.com','baidu','width=400,height=400,top=200,left=200,......');
+
+		4、窗口的位置和大小
+
+		用来确定和修改window对象位置的属性和方法有很多。IE、Safari、Opera和Chrome都提供了screenLeft和screenTop属性，分别用于表示窗口相对于屏幕左边和上边的位置。Firefox则在screenX和screenY属性中提供相同的窗口位置信息，Safari和Chrome也同时支持这两个属性。
+
+		//确定窗口的位置,IE支持
+		alert(screenLeft);							//IE支持
+		alert(typeof screenLeft);						//IE显示number，不支持的显示undefined
+
+		//确定窗口的位置,Firefox支持
+		alert(screenX);								//Firefox支持
+		alert(typeof screenX);						//Firefox显示number,不支持的同上
+
+
+		窗口页面大小，Firefox、Safari、Opera和Chrome均为此提供了4个属性：innerWidth和innerHeight，返回浏览器窗口本身的尺寸；outerWidth和outerHeight，返回浏览器窗口本身及边框的尺寸。
+
+		alert(innerWidth);							//页面宽度 + 边框
+		alert(innerHeight);							//页面高度 + 边框
+		alert(outerWidth);							//页面宽度
+		alert(outerHeight);							//页面高度
+
+		了解 ===》 在Chrome中，innerWidth=outerWidth、innerHeight=outerHeight
+
+		5、间歇调用和超时调用
+
+		*  间歇调用
+
+			setInterval("alert('定时执行')", 1000);
+
+			取消间歇调用方法和取消超时调用类似，使用clearInterval()方法。但取消间歇调用的重要性要远远高于取消超时调用，因为在不加干涉的情况下，间歇调用将会一直执行到页面关闭。
+			var box = setInterval(function () {				//获取间歇调用的ID
+				alert('Lee');
+			}, 1000);
+
+			clearInterval(box);							//取消间歇调用
+
+		*  超时调用
+
+			setTimeout("alert('Lee')", 1000);				//不建议直接使用字符串
+
+			function box() {
+				alert('Lee');
+			}
+			setTimeout(box, 1000);						//直接传入函数名即可
+
+			setTimeout(function () {						//推荐做法
+				alert('Lee');
+			}, 1000);
+
+			调用setTimeout()之后，该方法会返回一个数值ID，表示超时调用。这个超时调用的ID是计划执行代码的唯一标识符，可以通过它来取消超时调用。
+
+			要取消尚未执行的超时调用计划，可以调用clearTimeout()方法并将相应的超时调用ID作为参数传递给它，清除超时调用。
+
+	二、location对象
+
+		location是BOM对象之一，它提供了与当前窗口中加载的文档有关的信息，还提供了一些导航功能。事实上，location对象是window对象的属性，也是document对象的属性；所以window.location和document.location等效。
+
+		location.href = 'http://www.baidu.com';			//设置跳转的URL，并跳转
+		alert(location.href);							//获取当前的URL
+
+		location.hash
+
+		location.search
+
+	三、history对象
+
+		history对象是window对象的属性，它保存着用户上网的记录，从窗口被打开的那一刻算起。
+
+		history.back();	                               //跳转到前一个URL
+
+		history.forward();	                           //跳转到下一个URL
+
+		history.go();	                               //跳转指定历史记录的URL
+
+		注意 ===》 可以通过判断history.length == 0，得到是否有历史记录。
+
+	四、screen对象
+
+		screen对象用于获取用户的屏幕信息
+
+		screen对象属性：
+
+			height 属性	--	屏幕的高度，单位像素
+			width 属性	--	屏幕的宽度，单位像素
+			availHeight 属性	--	窗口可以使用的屏幕高度，单位像素
+			availWidth 属性	--	窗口可以使用的屏幕宽度，单位像素
+			colorDepth 属性	--	用户浏览器表示的颜色位数，通常为32位(每像素的位数)
+			pixelDepth 属性	--	用户浏览器表示的颜色位数，通常为32位(每像素的位数)（IE不支持此属性）
+		示例：
+
+		window.moveTo(0,0); window.resizeTo(screen.availWidth, screen.availHeight);
